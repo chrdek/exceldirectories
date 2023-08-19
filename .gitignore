@@ -1,0 +1,16 @@
+nuget.exe
+nuget.config
+*.exe
+*.pdf
+*.docx
+*.nuspec
+*.png
+*.ico
+/obj
+/lib
+/obj/
+/bin/Release
+/lib/
+/Releases/
+*.nupkg
+*.config
