@@ -1,7 +1,6 @@
 nuget.exe
 nuget.config
 *.exe
-*.pdf
 *.docx
 *.nuspec
 *.png
