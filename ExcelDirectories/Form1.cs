@@ -12,6 +12,7 @@ using Microsoft.Office.Core;
 using System.Runtime.Remoting.Messaging;
 using DSOFile;
 using Spire.Xls;
+using Spire.Pdf;
 using Spire.Xls.Core.Spreadsheet;
 
 
@@ -211,7 +212,39 @@ namespace ExcelDirectories
                 }
             return allFileinformation;
         }
-            
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Spire.Xls.Workbook workbook = new Spire.Xls.Workbook();
+            workbook.LoadFromFile(strPath + "\\output.xls");
+            workbook.ConverterSetting.SheetFitToPage = true;
+            var worksheet = workbook.Worksheets[0];
+            worksheet.SaveToPdf(strPath + "\\output.pdf");
+            
+            MessageBox.Show("Excel view exported to PDF.\r\n Click OK to continue.\r\n Files produced in directory: [output.pdf]");
+        }
+
+
+        // This method exports to both excel compatible-compliant csv and to UTF-8 compliant csv text.
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Spire.Xls.Workbook workbook = new Spire.Xls.Workbook();
+            workbook.LoadFromFile(strPath + "\\output.xls");
+            workbook.ConverterSetting.SheetFitToPage = true;
+            var worksheet = workbook.Worksheets[0];
+
+            //Save to a running memory set..
+            var ms = new MemoryStream();
+            workbook.SaveToStream(ms, Spire.Xls.FileFormat.CSV);
+            ms.Position = 0;
+            using (FileStream fs = new FileStream(strPath + "\\output2.csv", FileMode.Create, FileAccess.Write))
+                ms.CopyTo(fs);
+
+            //output.csv = text only, output2.csv = excel compliant
+            worksheet.SaveToFile(strPath + "\\output.csv", ",", System.Text.Encoding.UTF8);
+            workbook.SaveToFile(strPath + "\\output2.csv");
+
+            MessageBox.Show("Excel view exported to CSV.\r\n Click OK to continue.\r\n Files produced in directory: [output.csv,output2.csv]");
+        }
     }
 }
