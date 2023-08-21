@@ -15,5 +15,9 @@ __Requirements to build/run (VS 2017 or older):__
 
 <br>
 
+
 **__Brief PDF user manual included in the repository__**
 
+
+Additional features listing:
+ - Additional exporting capability to CSV, PDF for excel view (CSV text compliant/Excel compliant)
